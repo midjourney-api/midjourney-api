@@ -1,0 +1,23 @@
+{
+  "name": "midjourney-api",
+  "version": "1.0.0",
+  "description": "Midjourney API (third party)",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [
+    "midjourney client",
+    "midjourney api",
+    "api midjourney",
+    "midjourney ai api",
+    "midjourney bot api",
+    "api midjourney api",
+    "api midjourney bot",
+    "midjourney api access"
+  ],
+  "author": "MIDJOURNEYBYAPI.CLOUD",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "form-data": "^4.0.0"
+  }
+}
