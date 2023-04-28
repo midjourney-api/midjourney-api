@@ -11,7 +11,7 @@ const midjourney = new MidjourneyAPI(baseURL, apiKey, verbose);
   /**********  IMAGINE  ***********/
 
   // Imagine request
-  const req1 = await midjourney.imagine('a red dog ridding a blue horse');
+  const req1 = await midjourney.imagine('a red knight riding a blue horse');
 
   // wait 30 seconds
   await new Promise((resolve) => {
