@@ -1,6 +1,6 @@
 {
   "name": "midjourney-api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Midjourney API (third party)",
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
     "api midjourney bot",
     "midjourney api access"
   ],
-  "author": "MIDJOURNEYBYAPI.CLOUD",
+  "author": "MIDJOURNEYAPI.IO",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.4.0",

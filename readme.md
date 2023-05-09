@@ -1,9 +1,9 @@
 
 
 
-# [Midjourney API](https://midjourneybyapi.cloud/) (unofficial)
+# [Midjourney API](https://midjourneyapi.io) (unofficial)
 
-A simple NPM module that wraps the [Midjourney API](https://midjourneybyapi.cloud/), providing an easy-to-use interface for interacting with the [Midjourney API](https://midjourneybyapi.cloud/) services.
+A simple NPM module that wraps the [Midjourney API](https://midjourneyapi.io), providing an easy-to-use interface for interacting with the [Midjourney API](https://midjourneyapi.io) services.
 
 ## Installation
 
@@ -13,7 +13,7 @@ npm install midjourney-api
 
 ## Usage
 
-Import the `MidjourneyAPI` class and create an instance with your API key and desired options. You can get your API Key and API Base URL at [Midjourney AI API](https://midjourneybyapi.cloud/)
+Import the `MidjourneyAPI` class and create an instance with your API key and desired options. You can get your API Key and API Base URL at [Midjourney AI API](https://midjourneyapi.io)
 
 ```javascript
 const MidjourneyAPI = require('midjourney-api');
@@ -38,10 +38,8 @@ The module provides the following methods:
 - `blend(images, dimension, callbackURL)`: Blend multiple images into one image.
 - `remix(messageId, jobId, callbackURL)`: Reroll to create new images from a previous prompt.
 - `getResult(resultId)`: Get the final result for a submitted job.
-- `switchFastMode()`: Switch to Fast mode.
-- `switchRelaxMode()`: Switch to Relax mode.
 
-For more detailed information about these methods and their parameters, please refer to the [Midjourney API documentation](https://midjourney-by-api.gitbook.io/midjourney-api/).
+For more detailed information about these methods and their parameters, please refer to the [Midjourney API documentation](https://docs.midjourneyapi.io).
 
 ## Example
 

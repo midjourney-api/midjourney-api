@@ -14,7 +14,7 @@ class MidjourneyAPI {
   }
 
   /**
-   * https://midjourney-by-api.gitbook.io/midjourney-api/midjourney-api/imagine
+   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/imagine
    *
    * ⚠️ This won't produce the direct result but submit the job to Midjourney. You can use the getResult() method to get the final result later.
    *
@@ -58,7 +58,7 @@ class MidjourneyAPI {
   }
 
   /**
-   * https://midjourney-by-api.gitbook.io/midjourney-api/midjourney-api/upscale
+   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/upscale
    *
    * ⚠️ This won't produce the direct result but submit the job to Midjourney. You can use the getResult() method to get the final result later.
    *
@@ -104,7 +104,7 @@ class MidjourneyAPI {
   }
 
   /**
-   * https://midjourney-by-api.gitbook.io/midjourney-api/midjourney-api/variations
+   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/variations
    *
    * ⚠️ This won't produce the direct result but submit the job to Midjourney. You can use the getResult() method to get the final result later.
    *
@@ -150,7 +150,7 @@ class MidjourneyAPI {
   }
 
   /**
-   * https://midjourney-by-api.gitbook.io/midjourney-api/midjourney-api/upload-image
+   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/upload-image
    *
    * Upload an image and get an image URL back.
    *
@@ -191,7 +191,7 @@ class MidjourneyAPI {
   }
 
   /**
-   * https://midjourney-by-api.gitbook.io/midjourney-api/midjourney-api/seed
+   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/seed
    *
    * ⚠️ This won't produce the direct result but submit the job to Midjourney. You can use the getResult() method to get the final result later.
    *
@@ -234,7 +234,7 @@ class MidjourneyAPI {
   }
 
   /**
-   * https://midjourney-by-api.gitbook.io/midjourney-api/midjourney-api/describe
+   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/describe
    *
    * ⚠️ This won't produce the direct result but submit the job to Midjourney. You can use the getResult() method to get the final result later.
    *
@@ -278,7 +278,7 @@ class MidjourneyAPI {
   }
 
   /**
-   * https://midjourney-by-api.gitbook.io/midjourney-api/midjourney-api/blend
+   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/blend
    *
    * ⚠️ This won't produce the direct result but submit the job to Midjourney. You can use the getResult() method to get the final result later.
    *
@@ -325,7 +325,7 @@ class MidjourneyAPI {
   }
 
   /**
-   * https://midjourney-by-api.gitbook.io/midjourney-api/midjourney-api/remix-re-roll
+   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/remix-re-roll
    *
    * ⚠️ This won't produce the direct result but submit the job to Midjourney. You can use the getResult() method to get the final result later.
    *
@@ -371,7 +371,7 @@ class MidjourneyAPI {
   }
 
   /**
-   * https://midjourney-by-api.gitbook.io/midjourney-api/midjourney-api/result
+   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/result
    *
    * Get the final result for a submitted job.
    *
@@ -408,71 +408,6 @@ class MidjourneyAPI {
       console.log(error);
       throw new Error('Remix request failed!');
     }
-  }
-
-  /**
-   * https://midjourney-by-api.gitbook.io/midjourney-api/midjourney-api/fast-mode
-   *
-   * Switch to Fast mode.
-   *
-   */
-  async switchFastMode() {
-    try {
-      const config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: `${this.baseURL}/fast-mode`,
-        headers: {
-          Authorization: this.apiKey,
-          'Content-Type': 'application/json',
-        },
-      };
-
-      const { data: responseData } = await axios.request(config);
-
-      if (this.verbose) {
-        console.log({
-          response: responseData,
-        });
-      }
-
-      return {
-        ...responseData,
-      };
-    } catch (error) {
-      console.log(error);
-      throw new Error('SwitchToFastMode request failed!');
-    }
-  }
-
-  /**
-   * https://midjourney-by-api.gitbook.io/midjourney-api/midjourney-api/relax-mode
-   *
-   * Switch to Relax mode.
-   *
-   */
-  async switchRelaxMode() {
-    const config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: `${this.baseURL}/relax-mode`,
-      headers: {
-        Authorization: this.apiKey,
-        'Content-Type': 'application/json',
-      },
-    };
-
-    const { data: responseData } = await axios.request(config);
-
-    if (this.verbose) {
-      console.log({
-        response: responseData,
-      });
-    }
-
-    return {
-      ...responseData,
-    };
   }
 }
 
