@@ -11,37 +11,29 @@ const midjourney = new MidjourneyAPI(baseURL, apiKey, verbose);
   /**********  IMAGINE  ***********/
 
   // Imagine request
-  const req1 = await midjourney.imagine('a red knight riding a blue horse');
+  const req1 = await midjourney.imagine('a red knight riding a blue horse', 'turbo');
 
   // wait 30 seconds
   await new Promise((resolve) => {
-    setTimeout(resolve, 30 * 1000);
+    setTimeout(resolve, 20 * 1000);
   });
 
   // Get result
-  const res1 = await midjourney.getResult(req1.resultId);
+  const res1 = await midjourney.getResult(req1.taskId);
 
   /**********  IMAGINE  ***********/
 
   /**********  UPSCALE IMAGE #2  ***********/
 
   // Upscale request
-  const req2 = await midjourney.upscale(res1.messageId, res1.jobId, 2);
-
-  // wait 30 seconds
-  await new Promise((resolve) => {
-    setTimeout(resolve, 30 * 1000);
-  });
-
-  // Get result
-  const res2 = await midjourney.getResult(req2.resultId);
+  const res2 = await midjourney.upscale(res1.taskId, 2);
 
   /**********  UPSCALE IMAGE #2 ***********/
 
   /**********  VARIATIONS OF IMAGE #3 ***********/
 
   // Variations request
-  const req3 = await midjourney.variations(res1.messageId, res1.jobId, 3);
+  const req3 = await midjourney.variations(res1.taskId, 3);
 
   // wait 30 seconds
   await new Promise((resolve) => {
@@ -49,14 +41,14 @@ const midjourney = new MidjourneyAPI(baseURL, apiKey, verbose);
   });
 
   // Get result
-  const res3 = await midjourney.getResult(req3.resultId);
+  const res3 = await midjourney.getResult(req3.taskId);
 
   /**********  VARIATIONS OF IMAGE #3  ***********/
 
   /**********  GET SEED OF THE FIRST COMMAND  ***********/
 
   // seed request
-  const req4 = await midjourney.getSeed(res1.messageId, res1.jobId);
+  const req4 = await midjourney.getSeed(res1.taskId);
 
   // wait 5 seconds
   await new Promise((resolve) => {
@@ -64,39 +56,11 @@ const midjourney = new MidjourneyAPI(baseURL, apiKey, verbose);
   });
 
   // Get result
-  const res4 = await midjourney.getResult(req4.resultId);
+  const res4 = await midjourney.getResult(req4.taskId);
 
 
   /**********  GET SEED OF THE FIRST COMMAND ***********/
 
-  /**********  BLEND TWO IMAGES  ***********/
-
-  // seed request
-  const req5 = await midjourney.blend(
-    [{  // FILE 1
-        file: fs.createReadStream('./images/image1.png'),
-        name: 'image1.png'
-    },
-    {   // FILE 2
-        file: fs.createReadStream('./images/image2.png'),
-        name: 'image2.png'
-    },
-    {   // FILE 3
-        file: fs.createReadStream('./images/image3.png'),
-        name: 'image3.png'
-    }],
-    'Landscape',
-  );
-
-  // wait 30 seconds
-  await new Promise((resolve) => {
-    setTimeout(resolve, 30 * 1000);
-  });
-
-  // Get result
-  const res5 = await midjourney.getResult(req5.resultId);
-
-  /**********  BLEND TWO IMAGES ***********/
 
   /**********  DESCRIBE AN IMAGE  ***********/
 

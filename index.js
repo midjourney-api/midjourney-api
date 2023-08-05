@@ -3,18 +3,18 @@ const FormData = require('form-data');
 
 // Main class declaration
 class MidjourneyAPI {
-  constructor(baseURL, apiKey, verbose = false) {
-    this.baseURL = baseURL;
+  constructor(apiKey, verbose = false) {
+    this.baseURL = 'https://api.midjourneyapi.io/v2/';
     this.apiKey = apiKey;
     this.verbose = verbose;
 
-    if (!baseURL || !apiKey) {
-      throw new Error('baseURL and apiKey are required!');
+    if (!apiKey) {
+      throw new Error('The apiKey is required!');
     }
   }
 
   /**
-   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/imagine
+   * https://slashimagine.pro/docs
    *
    * ⚠️ This won't produce the direct result but submit the job to Midjourney. You can use the getResult() method to get the final result later.
    *
@@ -22,11 +22,12 @@ class MidjourneyAPI {
    *
    * This is the /imagine command on Discord.
    */
-  async imagine(prompt, callbackURL = undefined) {
+  async imagine(prompt, mode = 'fast', callbackURL = undefined) {
     try {
       const data = JSON.stringify({
         prompt,
         callbackURL,
+        mode,
       });
 
       const config = {
@@ -52,27 +53,25 @@ class MidjourneyAPI {
         ...responseData,
       };
     } catch (error) {
-      console.log(error);
+      console.log(error?.response?.data?.errors);
       throw new Error('Imagine request failed!');
     }
   }
 
   /**
-   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/upscale
+   * https://slashimagine.pro/docs
    *
-   * ⚠️ This won't produce the direct result but submit the job to Midjourney. You can use the getResult() method to get the final result later.
+   * ⚠️ This will produce the direct result so no need to use getResult() method.
    *
    * Upscale one of the 4 generated images by the Imagine command.
    *
    * This is the same as clicking U1, U2, U3, or U4 on Discord.
    */
-  async upscale(messageId, jobId, position, callbackURL = undefined) {
+  async upscale(taskId, position) {
     try {
       const data = JSON.stringify({
-        messageId,
-        jobId,
+        taskId,
         position,
-        callbackURL,
       });
 
       const config = {
@@ -98,13 +97,13 @@ class MidjourneyAPI {
         ...responseData,
       };
     } catch (error) {
-      console.log(error);
+      console.log(error?.response?.data?.errors);
       throw new Error('Upscale request failed!');
     }
   }
 
   /**
-   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/variations
+   * https://slashimagine.pro/docs
    *
    * ⚠️ This won't produce the direct result but submit the job to Midjourney. You can use the getResult() method to get the final result later.
    *
@@ -112,11 +111,10 @@ class MidjourneyAPI {
    *
    * This is the same as clicking V1, V2, V3, or V4 on Discord.
    */
-  async variations(messageId, jobId, position, callbackURL = undefined) {
+  async variations(taskId, position, callbackURL = undefined) {
     try {
       const data = JSON.stringify({
-        messageId,
-        jobId,
+        taskId,
         position,
         callbackURL,
       });
@@ -124,7 +122,7 @@ class MidjourneyAPI {
       const config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: `${this.baseURL}/variants`,
+        url: `${this.baseURL}/variations`,
         headers: {
           Authorization: this.apiKey,
           'Content-Type': 'application/json',
@@ -150,7 +148,7 @@ class MidjourneyAPI {
   }
 
   /**
-   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/upload-image
+   * https://slashimagine.pro/docs
    *
    * Upload an image and get an image URL back.
    *
@@ -191,17 +189,16 @@ class MidjourneyAPI {
   }
 
   /**
-   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/seed
+   * https://slashimagine.pro/docs
    *
    * ⚠️ This won't produce the direct result but submit the job to Midjourney. You can use the getResult() method to get the final result later.
    *
    * Get the seed of a generated image.
    */
-  async getSeed(messageId, jobId, callbackURL = undefined) {
+  async getSeed(taskId, callbackURL = undefined) {
     try {
       const data = JSON.stringify({
-        messageId,
-        jobId,
+        taskId,
         callbackURL,
       });
 
@@ -234,7 +231,7 @@ class MidjourneyAPI {
   }
 
   /**
-   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/describe
+   * https://slashimagine.pro/docs
    *
    * ⚠️ This won't produce the direct result but submit the job to Midjourney. You can use the getResult() method to get the final result later.
    *
@@ -278,74 +275,26 @@ class MidjourneyAPI {
   }
 
   /**
-   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/blend
+   * https://slashimagine.pro/docs
    *
-   * ⚠️ This won't produce the direct result but submit the job to Midjourney. You can use the getResult() method to get the final result later.
+   * ⚠️ This will produce the direct result; so you don't need to use the getResult() method to get the final result later.
    *
-   * Blend multiple images into one image.
+   * Swap the face on the target image with the face on source image.
    *
    * This is the same as using the /blend command in Discord.
    *
    */
-  async blend(images, dimension = 'Landscape', callbackURL = undefined) {
-    try {
-      const data = new FormData();
-      for (let i = 0; i < images.length; i += 1) {
-        data.append('image', images[i].file, images[i].name);
-      }
-      data.append('dimension', dimension);
-      if (callbackURL) data.append('callbackURL', callbackURL);
-
-      const config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: `${this.baseURL}/blend`,
-        headers: {
-          Authorization: this.apiKey,
-          ...data.getHeaders(),
-        },
-        data: data,
-      };
-
-      const { data: responseData } = await axios.request(config);
-
-      if (this.verbose) {
-        console.log({
-          response: responseData,
-        });
-      }
-
-      return {
-        ...responseData,
-      };
-    } catch (error) {
-      console.log(error);
-      throw new Error('Describe request failed!');
-    }
-  }
-
-  /**
-   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/remix-re-roll
-   *
-   * ⚠️ This won't produce the direct result but submit the job to Midjourney. You can use the getResult() method to get the final result later.
-   *
-   * Reroll to create new images from a previous prompt.
-   *
-   * This is the same as clicking on  on Discord
-   *
-   */
-  async remix(messageId, jobId, callbackURL = undefined) {
+  async faceswap(targetImageURL, faceImageURL) {
     try {
       const data = JSON.stringify({
-        messageId,
-        jobId,
-        callbackURL,
+        targetImageURL,
+        faceImageURL,
       });
 
       const config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: `${this.baseURL}/remix`,
+        url: `${this.baseURL}/faceswap`,
         headers: {
           Authorization: this.apiKey,
           'Content-Type': 'application/json',
@@ -366,20 +315,20 @@ class MidjourneyAPI {
       };
     } catch (error) {
       console.log(error);
-      throw new Error('Remix request failed!');
+      throw new Error('Faceswap request failed!');
     }
   }
 
   /**
-   * https://docs.midjourneyapi.io/midjourney-api/midjourney-api/result
+   * https://slashimagine.pro/docs
    *
    * Get the final result for a submitted job.
    *
    */
-  async getResult(resultId) {
+  async getResult(taskId) {
     try {
       const data = JSON.stringify({
-        resultId,
+        taskId,
       });
 
       const config = {
@@ -406,7 +355,7 @@ class MidjourneyAPI {
       };
     } catch (error) {
       console.log(error);
-      throw new Error('Remix request failed!');
+      throw new Error('Result request failed!');
     }
   }
 }
