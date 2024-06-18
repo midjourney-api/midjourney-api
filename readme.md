@@ -1,9 +1,11 @@
 
 
 
-# [Midjourney API](https://slashimagine.pro) (unofficial)
+# [Midjourney API](https://apiframe.pro) (unofficial)
 
-A simple NPM module that wraps the [Midjourney API](https://slashimagine.pro), providing an easy-to-use interface for interacting with the [Midjourney API](https://slashimagine.pro) services.
+## A simple NPM module that wraps the [Midjourney API](https://apiframe.pro), providing an easy-to-use interface for interacting with the [Midjourney API](https://apiframe.pro) services.
+
+This service deprecated, take a look at https://apiframe.pro
 
 ## Installation
 
@@ -13,7 +15,7 @@ npm install midjourney-api
 
 ## Usage
 
-Import the `MidjourneyAPI` class and create an instance with your API key and desired options. You can get your API Key and API Base URL at [Midjourney AI API](https://slashimagine.pro)
+Import the `MidjourneyAPI` class and create an instance with your API key and desired options. You can get your API Key and API Base URL at [Midjourney AI API](https://apiframe.pro)
 
 ```javascript
 const MidjourneyAPI = require('midjourney-api');
@@ -37,7 +39,7 @@ The module provides the following methods:
 - `faceswap(targetImageURL, faceImageURL)`: Swap the face on the target image with the face on source image.
 - `getResult(taskId)`: Get the final result for a submitted job.
 
-For more detailed information about these methods and their parameters, please refer to the [Midjourney API documentation](https://slashimagine.pro/docs).
+For more detailed information about these methods and their parameters, please refer to the [Midjourney API documentation](https://apiframe.pro).
 
 ## Example
 
