@@ -3,7 +3,7 @@
 
 # [Midjourney API](https://apiframe.pro) (unofficial)
 
-## A simple NPM module that wraps the [Midjourney API](https://apiframe.pro), providing an easy-to-use interface for interacting with the [Midjourney API](https://apiframe.pro) services.
+## A simple NPM module that wraps the [Midjourney API](https://apiframe.pro), providing an easy-to-use interface for interacting with the Midjourney API services.
 
 This service deprecated, take a look at https://apiframe.pro
 
@@ -15,7 +15,7 @@ npm install midjourney-api
 
 ## Usage
 
-Import the `MidjourneyAPI` class and create an instance with your API key and desired options. You can get your API Key and API Base URL at [Midjourney AI API](https://apiframe.pro)
+Import the `MidjourneyAPI` class and create an instance with your API key and desired options. You can get your API Key and API Base URL at https://apiframe.pro
 
 ```javascript
 const MidjourneyAPI = require('midjourney-api');
