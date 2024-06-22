@@ -39,7 +39,7 @@ The module provides the following methods:
 - `faceswap(targetImageURL, faceImageURL)`: Swap the face on the target image with the face on source image.
 - `getResult(taskId)`: Get the final result for a submitted job.
 
-For more detailed information about these methods and their parameters, please refer to the [Midjourney API documentation](https://apiframe.pro).
+For more detailed information about these methods and their parameters, please refer to the [Midjourney API documentation](https://docs.apiframe.pro).
 
 ## Example
 
